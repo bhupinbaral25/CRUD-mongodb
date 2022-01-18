@@ -1,5 +1,5 @@
 import json
-from flask import response, jsonify
+from src.helpers import response
 from model import TODO
 
 def create_todo(event, context):
@@ -19,4 +19,4 @@ def create_todo(event, context):
             "status": False
         }
         status_code = 400
-    return response(status_code, jsonify(response_body))
+    return response(status_code, response_body)

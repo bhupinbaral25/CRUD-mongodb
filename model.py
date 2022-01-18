@@ -1,15 +1,19 @@
 import datetime
+import yaml
 import os
 from mongoengine import connect
 import mongoengine_goodjson as gj
 from mongoengine.fields import DateTimeField, StringField
 from mongoengine import ValidationError
 
+with open("cred.yaml", "r") as stream:
+    cread = yaml.safe_load(stream)
+
 #  Read key-value pairs from a .env file and set them as environment variables
-user = os.getenv("DB_USER")
-password = os.getenv("DB_PASSWORD")
-database_name = os.getenv("DATABASE_NAME")
-host = os.getenv("DB_HOST")
+user = cread["DB_USER"]
+password = cread["DB_PASSWORD"]
+database_name = cread["DATABASE_NAME"]
+host = cread["DB_HOST"]
 
 # Connecting to MongoDB
 host = f"mongodb+srv://{user}:{password}@{host}/{database_name}"
