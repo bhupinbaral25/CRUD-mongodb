@@ -1,27 +1,23 @@
 import datetime
-import yaml
 import os
 from mongoengine import connect
 import mongoengine_goodjson as gj
 from mongoengine.fields import DateTimeField, StringField
-from mongoengine import ValidationError
-
-with open("cred.yaml", "r") as stream:
-    cread = yaml.safe_load(stream)
+from functions.helpers.validation import ValidationError
 
 #  Read key-value pairs from a .env file and set them as environment variables
-user = cread["DB_USER"]
-password = cread["DB_PASSWORD"]
-database_name = cread["DATABASE_NAME"]
-host = cread["DB_HOST"]
+user = os.environ.get("DB_USER")
+password = os.environ.get("DB_PASSWORD")
+database_name = os.environ.get("DATABASE_NAME")
+host = os.environ["DB_HOST"]
 
 # Connecting to MongoDB
 host = f"mongodb+srv://{user}:{password}@{host}/{database_name}"
 connect(host=host)
 
-
-def not_null():
-    raise ValidationError("This field can not be empty")
+def not_null(name):
+    if not name:
+        raise ValidationError("Name can not be empty")
 
 
 class DefaultAttributes:
@@ -39,8 +35,7 @@ class DefaultAttributes:
         self.modified_date = datetime.datetime.now()
         return super(DefaultAttributes, self).save(*args, **kwargs)
 
-
 class TODO(DefaultAttributes, gj.Document):
-    tittle = StringField(max_length=200, required=True, validation=not_null)
+    tittle = StringField(max_length=200, required=True)
     description = StringField(required=True)
     

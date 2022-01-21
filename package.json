@@ -1,0 +1,24 @@
+{
+  "name": "mycrud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhupinbaral25/CRUD-mongodb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bhupinbaral25/CRUD-mongodb/issues"
+  },
+  "homepage": "https://github.com/bhupinbaral25/CRUD-mongodb#readme",
+  "devDependencies": {
+    "serverless-deployment-bucket": "^1.5.1",
+    "serverless-dotenv-plugin": "^3.12.2"
+  }
+}

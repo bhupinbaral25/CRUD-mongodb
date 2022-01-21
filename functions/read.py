@@ -1,12 +1,12 @@
 import json
 import math
-from src.helpers import response
+from functions.helpers.response import response
 from model import TODO
 
-from .helpers import skiplimit
+from functions.helpers.skiplimit import skiplimit
 
-def read_todo(event, context):
-    response_body = {}
+def main(event, context):
+    
     try:
         parameters = event["queryStringParameters"]
         if(parameters is not None):

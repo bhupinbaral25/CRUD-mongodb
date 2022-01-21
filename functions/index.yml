@@ -1,0 +1,35 @@
+CreateTodo: 
+  handler: functions/create.main
+  layers: ${self:custom.layers.mongoengine}
+  events: 
+    - http:
+        method: POST
+        path: create
+        cors: true
+
+DeleteTodo: 
+  handler: functions/delete.main
+  layers: ${self:custom.layers.mongoengine}
+  events: 
+    - http:
+        method: DELETE
+        path: delete
+        cors: true
+
+UpdateTodo: 
+  handler: functions/update.main
+  layers: ${self:custom.layers.mongoengine}
+  events: 
+    - http:
+        method: PUT
+        path: update
+        cors: true
+
+ReadTodo: 
+  handler: functions/read.main
+  layers: ${self:custom.layers.mongoengine}
+  events: 
+    - http:
+        method: GET
+        path: read
+        cors: true

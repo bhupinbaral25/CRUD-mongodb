@@ -1,0 +1,4 @@
+mongoengine==0.23.1
+mongoengine-goodjson==1.1.8
+pydantic==1.9.0
+

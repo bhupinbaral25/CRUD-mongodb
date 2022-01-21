@@ -1,11 +1,11 @@
-service: mongoengine-practice
+service: monogoengine-bhupin
 useDotenv: true
 
 custom:
   defaultStage: dev
   serviceName: ${self:service}-serverless
   layers:
-    mongoengine: arn:aws:lambda:ap-south-1:725446648250:layer:aws-layers-demo-dev-mongoengine:7
+    mongoengine: arn:aws:lambda:ap-south-1:829025706522:layer:bhupin-learning-layers-dev-mongoengine:1
   project: ${self:service}
   developer: Bhupin Baral
   team: ${self:service}-backend-developer
@@ -15,18 +15,14 @@ provider:
   runtime: python3.8
   stage: ${opt:stage, self:custom.defaultStage}
   region: ap-south-1
-  profile: 
+  profile: sandbox
   lambdaHashingVersion: 20200924
   logRetentionInDays: 1
   deploymentBucket:
     blockPublicAccess: true
-    name: ${self:custom.serviceName}-deployment-bucket-${self:provider.stage}
-    maxPreviousDeploymentArtifacts: 10
-  stackTags: # Optional CF stack tags
-    btlTeam: ${self:custom.team}
-    btlDeveloper: ${self:custom.developer}
-    btlProject: ${self:custom.project}
+    name: bhupin-learning-bucket
 
+  
 plugins:
   - serverless-deployment-bucket
   - serverless-dotenv-plugin
@@ -49,4 +45,4 @@ package:
   excludeDevDependencies: true
 
 functions:
-  - ${file(src/functions/profile/profile.yml)}
+  - ${file(functions/index.yml)}
