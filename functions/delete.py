@@ -1,11 +1,13 @@
 import json
 from functions.helpers.response import response
 from model import TODO
+from functions.helpers.validation import ValidateDeleteModel
 
 
 def main(event, context):
     try:
         data = json.loads(event["body"])
+        ValidateDeleteModel(**data)
         status_code = 200  
         todo_id = data.pop("id", None)
         if todo_id is not None:

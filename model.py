@@ -2,8 +2,7 @@ import datetime
 import os
 from mongoengine import connect
 import mongoengine_goodjson as gj
-from mongoengine.fields import DateTimeField, StringField
-from functions.helpers.validation import ValidationError
+from mongoengine.fields import DateTimeField, StringField, EmailField
 
 #  Read key-value pairs from a .env file and set them as environment variables
 user = os.environ.get("DB_USER")
@@ -17,8 +16,7 @@ connect(host=host)
 
 def not_null(name):
     if not name:
-        raise ValidationError("Name can not be empty")
-
+        raise ValueError("Name can not be empty")
 
 class DefaultAttributes:
     meta = {"allow_inheritance": True}
@@ -32,10 +30,20 @@ class DefaultAttributes:
         return super(DefaultAttributes, self).save(*args, **kwargs)
 
     def update(self, *args, **kwargs):
+        '''
+        Take the  data as argument and added the modified date as attribute
+        ------
+        Return
+        ------
+        Return the object that save the updated data into the database 
+        '''
         self.modified_date = datetime.datetime.now()
         return super(DefaultAttributes, self).save(*args, **kwargs)
 
 class TODO(DefaultAttributes, gj.Document):
+    """----------Basic class to define Payloads------------"""
     tittle = StringField(max_length=200, required=True)
     description = StringField(required=True)
+    email = EmailField(required=True)
+    phone = StringField(required=True)
     

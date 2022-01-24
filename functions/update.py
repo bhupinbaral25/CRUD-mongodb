@@ -1,11 +1,13 @@
 import json
 from model import TODO
 from functions.helpers.response import response
+from functions.helpers.validation import ValidateUpdateModel
 
 def main(event, context):
     
     try:
         data = json.loads(event["body"])
+        ValidateUpdateModel(**data)
         todo_id = data.pop("id", None)
         if todo_id is not None:
             NOT_REQUIRED = ["id", "creation_date", "_cls"]

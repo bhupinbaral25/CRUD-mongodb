@@ -2,12 +2,13 @@ import json
 import os
 from functions.helpers.response import response
 from model import TODO
+from functions.helpers.validation import ValidateCreateTODOModel
 
 def main(event, context):
     
     try:
         data = json.loads(event["body"])
-        print(data)
+        ValidateCreateTODOModel(**data)
         todo = TODO(**data).save()
         status_code = 200
         body = {
